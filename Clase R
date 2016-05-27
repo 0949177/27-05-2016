@@ -1,0 +1,29 @@
+require(fpp)
+PIB<-read.csv("C:\\Users\\SALA-C23\\Desktop\\PIB.csv",header = T)
+PIBts<-ts(PIB[,2],start = 1993,frequency = 4)
+M1<-auto.arima(PIBts,seasonal = F)
+M2<-Arima(PIBts,order=c(3,1,0))
+M3<-Arima(PIBts,order=c(0,0,1))
+M4<-Arima(PIBts,order=c(0,0,1))
+M1.1<-forecast(M1,h=4)
+M2.1<-forecast(M2,h=4)
+M3.1<-forecast(M3,h=4)
+names(M1.1)
+plot(PIBts,ylab="Precio",xlab="Año",main="PIB real vs Mod Ajustados",col="black",type="o")
+lines(fitted(M1),col="blue",type="o")
+lines(fitted(M2),col="red",type="o")
+lines(fitted(M3),col="green",type="o")
+legend("topleft",lty=1,col=c(1,"blue","red","green"),c("D. Reales","Auto Arima","Mod 2","Mod 3"),pch=10)
+
+plot(PIBts,ylab="Precio",xlab="Año",main="PIB real vs Pronóstico",col="black",type="o")
+lines(fitted(M1),col="blue",type="o")
+lines(fitted(M2),col="red",type="o")
+lines(fitted(M3),col="green",type="o")
+lines(M1.1$mean,col="blue",type="o")
+lines(M2.1$mean,col="red",type="o")
+lines(M3.1$mean,col="green",type="o")
+legend("topleft",lty=1,col=c(1,"blue","red","green"),c("D. Reales","Auto Arima","Mod 2","Mod3"),pch=10)
+
+
+
+
